@@ -26,7 +26,7 @@ private:
     static int xangle,yangle;
 
 public:
-    static Object3d myobj1,myobj2,myobj3;
+    static Object3d myobj1,myobj2,myobj3,tire1,tire2;
     myWindow(int argc, char ***argv,int h=500, int w=1000, int px=0, int py=0,string wname="my window")
     {
         height=h;
@@ -40,13 +40,30 @@ public:
         xangle=0;
         yangle=0;
         camera=Vec3(0,0,100);
-        myobj1.loadObject("E:/graphics_cloned_projects/myprojects/SUSHANTE/objects/plant.obj");
+        myobj1.loadObject("E:/graphics_cloned_projects/myprojects/SUSHANTE/objects/carbody.obj");
         myobj2.loadObject("E:/graphics_cloned_projects/myprojects/SUSHANTE/objects/newroad.obj");
-        myobj3.loadObject("E:/graphics_cloned_projects/myprojects/SUSHANTE/objects/carexported.obj");
+        myobj3.loadObject("E:/graphics_cloned_projects/myprojects/SUSHANTE/objects/carbody.obj");
+        tire1.loadObject("E:/graphics_cloned_projects/myprojects/SUSHANTE/objects/tirefront.obj");
+        tire2.loadObject("E:/graphics_cloned_projects/myprojects/SUSHANTE/objects/tireback.obj");
         for(int i=0;i<myobj3.vertBuffer.size();i++)
         {
-            RotateX(myobj3.vertBuffer[i].v,-90);
+            RotateX(myobj3.vertBuffer[i].v,180);
+            Translate(myobj3.vertBuffer[i].v,Vec3(0,0,-0.5));
         }
+        for(int i=0;i<tire1.vertBuffer.size();i++)
+        {
+            RotateX(tire1.vertBuffer[i].v,180);
+            //RotateY(tire1.vertBuffer[i].v,90);
+            Translate(tire1.vertBuffer[i].v,Vec3(0,0,-0.5));
+
+        }
+        for(int i=0;i<tire2.vertBuffer.size();i++)
+        {
+            RotateX(tire2.vertBuffer[i].v,180);
+            Translate(tire2.vertBuffer[i].v,Vec3(0,0,-0.5));
+
+        }
+
 
 
 
@@ -143,18 +160,32 @@ public:
     static void idle()
 
     {
-        int length=myobj3.vertBuffer.size();
-        for(int i=0;i<length;i++)
+        for (int i=0;i<myobj3.vertBuffer.size();i++)
         {
-            Translate(myobj3.vertBuffer[i].v,Vec3(0,0.3,0));
-            //glutPostRedisplay();
-            //Translate(myobj3.vertBuffer[i].v,Vec3(-myobj3.xdisplacement,-myobj3.ydisplacement,0));
-            //RotateZ(myobj3.vertBuffer[i].v,15);
-            //myobj3.xdisplacement++;
-            //myobj3.ydisplacement++;
-            //Translate(myobj3.vertBuffer[i].v,Vec3(myobj3.xdisplacement,myobj3.ydisplacement,0));
-
+            Translate(myobj3.vertBuffer[i].v,Vec3(0,0.5,0));
         }
+        for (int i=0;i<tire1.vertBuffer.size();i++)
+        {
+            Translate(tire1.vertBuffer[i].v,Vec3(-tire1.xdisplacement,-tire1.ydisplacement,1.75));
+            RotateX(tire1.vertBuffer[i].v,360);
+            Translate(tire1.vertBuffer[i].v,Vec3(tire1.xdisplacement,tire1.ydisplacement,-1.75));
+            //RotateX(tire1.vertBuffer[i].v,5);
+            Translate(tire1.vertBuffer[i].v,Vec3(0,0.5,0));
+        }
+        tire1.ydisplacement+=0.5;
+        for (int i=0;i<tire2.vertBuffer.size();i++)
+        {
+            Translate(tire2.vertBuffer[i].v,Vec3(-tire2.xdisplacement,-tire2.ydisplacement,1.75));
+            RotateX(tire2.vertBuffer[i].v,360);
+            Translate(tire2.vertBuffer[i].v,Vec3(tire2.xdisplacement,tire2.ydisplacement,-1.75));
+            //RotateX(tire1.vertBuffer[i].v,5);
+            Translate(tire2.vertBuffer[i].v,Vec3(0,0.5,0));
+        }
+        tire2.ydisplacement+=0.5;
+//        for (int i=0;i<myobj1.vertBuffer.size();i++)
+//        {
+//                RotateZ(myobj1.vertBuffer[i].v,15);
+//        }
         glutPostRedisplay();
     }
     static void display(void)
@@ -173,6 +204,8 @@ public:
          */
         Vec3 color2(0.5,0.5,0.5);
         Vec3 color3(1,0,0);
+        Vec3 black(1,0,0);
+        Vec3 tirecolor(0,0,0);
 
         int wireframe = 0;
         float intensity = 100;
@@ -184,13 +217,14 @@ public:
         vector<Vec3> Lightposition2;
         vector<Vec3> Lightposition3;
         Lightposition1.push_back(Vec3(0,0,-400));
+        Lightposition1.push_back(Vec3(-100,-100,-100));
         glClearColor(1,1,1,1);
        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
         myobj1.render(camera,LookTo,Lightposition1,0.5,0.5,color1,intensity,flag);
         myobj2.render(camera,LookTo,Lightposition1,0.5,0.5,color2,intensity,flag);
         myobj3.render(camera,LookTo,Lightposition1,0.5,0.5,color3,intensity,flag);
+        tire1.render(camera,LookTo,Lightposition1,0.5,0.5,tirecolor,intensity,flag);
+        tire2.render(camera,LookTo,Lightposition1,0.5,0.5,tirecolor,intensity,flag);
         flag=-1;
 
        glutSwapBuffers();
@@ -222,6 +256,8 @@ public:
 Object3d myWindow::myobj2= Object3d(0,100);
 Object3d myWindow::myobj1= Object3d(0,0,5,0,0);
 Object3d myWindow::myobj3= Object3d(0,0,0,0,0,1);
+Object3d myWindow::tire1= Object3d(0,0,0,0,5);
+Object3d myWindow::tire2= Object3d(0,0,0,0,-5);
 Vec3 myWindow::camera= Vec3(0,0,0);
 int myWindow::xangle=0;
 int myWindow::yangle=0;

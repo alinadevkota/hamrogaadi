@@ -43,7 +43,7 @@
 1519971591 source:e:\graphics_cloned_projects\myprojects\sushante\main.cpp
 	"myWindow.h"
 
-1520871117 e:\graphics_cloned_projects\myprojects\sushante\mywindow.h
+1520885632 e:\graphics_cloned_projects\myprojects\sushante\mywindow.h
 	<windows.h>
 	<glut.h>
 	<GL/glu.h>
@@ -66,7 +66,7 @@
 1519828701 e:\graphics_cloned_projects\myprojects\sushante\matvec.h
 	<math.h>
 
-1520867870 e:\graphics_cloned_projects\myprojects\sushante\object3d.h
+1520885507 e:\graphics_cloned_projects\myprojects\sushante\object3d.h
 	<vector>
 	<math.h>
 	<fstream>
