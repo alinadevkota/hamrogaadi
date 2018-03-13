@@ -43,7 +43,7 @@
 1519971591 source:e:\graphics_cloned_projects\myprojects\sushante\main.cpp
 	"myWindow.h"
 
-1520885632 e:\graphics_cloned_projects\myprojects\sushante\mywindow.h
+1520913016 e:\graphics_cloned_projects\myprojects\sushante\mywindow.h
 	<windows.h>
 	<glut.h>
 	<GL/glu.h>
